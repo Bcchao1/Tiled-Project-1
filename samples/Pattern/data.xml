@@ -1,0 +1,18 @@
+<set size="48" unique="True">
+	<tiles>
+		<tile name="tst7" symmetry="T"/>
+		<tile name="tst8" symmetry="L"/>
+		<tile name="tst9" symmetry="L"/>
+		<tile name="tst10" symmetry="X"/>
+		<tile name="tst11" symmetry="L"/>
+		<tile name="tst12" symmetry="T" weight="0.1"/>
+		<tile name="tst13" symmetry="L" weight="0.001"/>
+		<tile name="tst14" symmetry="X"/>
+		<tile name="tst16" symmetry="X"/>
+		<tile name="tst17" symmetry="X"/>
+	</tiles>
+	<neighbors>
+		<neighbor left="tst7" right="tst8"/>
+		<neighbor left="tst8" right="tst7"/>
+	</neighbors>
+</set>

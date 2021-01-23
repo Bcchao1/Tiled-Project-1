@@ -1,0 +1,7 @@
+connection 0, connection 0, connection 0, connection 0, corner 0, substrate 0, corner 1, 
+component 0, component 0, component 0, component 0, connection 3, track 1, connection 1, 
+component 0, component 0, component 0, component 0, connection 3, track 1, connection 1, 
+component 0, component 0, component 0, component 0, connection 3, track 1, connection 1, 
+component 0, component 0, component 0, component 0, connection 3, track 1, connection 1, 
+connection 2, connection 2, connection 2, connection 2, corner 3, substrate 0, corner 2, 
+dskew 0, dskew 0, dskew 0, dskew 0, viad 0, track 1, track 1, 

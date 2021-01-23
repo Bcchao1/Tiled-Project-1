@@ -1,0 +1,2 @@
+dotnet run WaveFunctionCollapse.csproj
+pause
