@@ -10,14 +10,17 @@ public static class Writer
 {
     public static void CreateSamplesFile()
     {
-       
-        string[] names = Directory.GetFiles("newsamples");
+       if(Program.usingAutoWriter != true)
+        {
+            return;
+        }
+        string[] names = Directory.GetFiles("samplesauto");
         //string[] names = Directory.GetFiles("C:/Users/bjark/Documents/Tiled-Project-1/newsamples");
 
         for (int i = 0; i < names.Length; i++)
         {
             Console.WriteLine(names[i]);
-            names[i] = names[i].Replace("newsamples\\", ""); //removing exraneous information from the filename
+            names[i] = names[i].Replace("samplesauto\\", ""); //removing exraneous information from the filename
             names[i] = names[i].Replace(".png", ""); //algorithm adds .png back on...
         }
 
@@ -28,13 +31,16 @@ public static class Writer
 
         foreach(string s in names)
         {
+            int n = rand.Next(2, 6);
+            int ran = rand.Next(4, 9);
+            int symmetry = ran - ran % 2; 
             lines.Add("<overlapping name=\"" + s + "\" N=\"3\" symmetry=\"2\" periodic=\"True\" width=\"100\" height=\"100\"/>");
             lines.Add("<overlapping name=\"" + s + "\" N=\"3\" symmetry=\"8\" periodic=\"True\" width=\"100\" height=\"100\"/>");
             lines.Add("<overlapping name=\"" + s + "\" N=\"4\" symmetry=\"2\" periodic=\"True\" width=\"100\" height=\"100\"/>");
-            lines.Add("<overlapping name=\"" + s + "\" N=\"" + rand.Next(2,6) + "\" symmetry=\"" + rand.Next(1, 9) + "\" periodic=\"True\" width=\"100\" height=\"100\" limit=\"5\"/>");
+            lines.Add("<overlapping name=\"" + s + "\" N=\"" + n + "\" symmetry=\"" + symmetry + "\" periodic=\"True\" width=\"100\" height=\"100\" limit=\"5\"/>");
         }
         lines.Add("</samples>");
 
-        System.IO.File.WriteAllLines(@"samples.xml", lines);
+        System.IO.File.WriteAllLines(@"samplesauto.xml", lines);
     }
 }

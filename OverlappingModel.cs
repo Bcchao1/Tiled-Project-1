@@ -30,7 +30,7 @@ class OverlappingModel : Model
         if (Program.usingAutoWriter)
         {
             Console.WriteLine(name);
-            bitmap = new Bitmap($"newsamples/{name}.png");
+            bitmap = new Bitmap($"samplesauto/{name}.png");
         }
         else
         {

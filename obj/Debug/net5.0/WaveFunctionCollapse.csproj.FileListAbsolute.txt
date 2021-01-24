@@ -368,7 +368,6 @@ C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\Summer\water_c
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\Town.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\tree.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\TrickKnot.png
-C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\tst1.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\Village.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\Wall.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\Water.png
@@ -410,3 +409,4 @@ C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\yellow.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\moon.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\lines.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\swirls.png
+C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\tst10.png
