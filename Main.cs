@@ -11,11 +11,18 @@ using System.Xml.Linq;
 using System.Diagnostics;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Xml;
 
 static class Program
 {
+
+    public readonly static bool usingAutoWriter = true;
+
+
     static void Main()
     {
+        Writer.CreateSamplesFile();
+
         Stopwatch sw = Stopwatch.StartNew();
 
         Random random = new Random();
@@ -69,6 +76,8 @@ static class Program
 
         List<Bitmap> upscaleds = new List<Bitmap>();
 
+        Console.WriteLine("Beginning Upscaling...");
+
         foreach(string name in listofNames)
         {
             Bitmap image = new Bitmap(name+".png");
@@ -90,7 +99,7 @@ static class Program
             upscaleds.Add(upscaledImage);
         }
 
-        Console.WriteLine("Upscales Done");
+        Console.WriteLine("Upscales Done!");
 
         foreach (string name in listofNames)
         {
@@ -129,7 +138,7 @@ static class Program
             combinedImage.Save("combined " + name + ".png");
         }
 
-        Console.WriteLine("Combined Done");
+        Console.WriteLine("Combined Done!");
 
         int count = 0;
         foreach (Bitmap bit in upscaleds)

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bjark\\Desktop\\WaveFunctionCollapse-master\\WaveFunctionCollapse.csproj": {}
+    "C:\\Users\\bjark\\Documents\\Tiled-Project-1\\WaveFunctionCollapse.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bjark\\Desktop\\WaveFunctionCollapse-master\\WaveFunctionCollapse.csproj": {
+    "C:\\Users\\bjark\\Documents\\Tiled-Project-1\\WaveFunctionCollapse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bjark\\Desktop\\WaveFunctionCollapse-master\\WaveFunctionCollapse.csproj",
+        "projectUniqueName": "C:\\Users\\bjark\\Documents\\Tiled-Project-1\\WaveFunctionCollapse.csproj",
         "projectName": "WaveFunctionCollapse",
-        "projectPath": "C:\\Users\\bjark\\Desktop\\WaveFunctionCollapse-master\\WaveFunctionCollapse.csproj",
+        "projectPath": "C:\\Users\\bjark\\Documents\\Tiled-Project-1\\WaveFunctionCollapse.csproj",
         "packagesPath": "C:\\Users\\bjark\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bjark\\Desktop\\WaveFunctionCollapse-master\\obj\\",
+        "outputPath": "C:\\Users\\bjark\\Documents\\Tiled-Project-1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bjark\\AppData\\Roaming\\NuGet\\NuGet.Config",

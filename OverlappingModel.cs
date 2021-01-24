@@ -11,6 +11,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Collections.Generic;
 
+
+
 class OverlappingModel : Model
 {
     int N;
@@ -24,7 +26,18 @@ class OverlappingModel : Model
         this.N = N;
         periodic = periodicOutput;
 
-        var bitmap = new Bitmap($"samples/{name}.png");
+        Bitmap bitmap;
+        if (Program.usingAutoWriter)
+        {
+            Console.WriteLine(name);
+            bitmap = new Bitmap($"newsamples/{name}.png");
+        }
+        else
+        {
+           bitmap = new Bitmap($"samples/{name}.png");
+        }
+
+
         int SMX = bitmap.Width, SMY = bitmap.Height;
         byte[,] sample = new byte[SMX, SMY];
         colors = new List<Color>();
