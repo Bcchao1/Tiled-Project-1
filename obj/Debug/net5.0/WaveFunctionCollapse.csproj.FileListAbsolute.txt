@@ -410,3 +410,5 @@ C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\moon.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\lines.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\swirls.png
 C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\tst10.png
+C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\OrangeTileVariant.png
+C:\Users\bjark\Documents\Tiled-Project-1\bin\Debug\net5.0\samples\OrangeTileVariant2.png

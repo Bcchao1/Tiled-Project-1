@@ -12,10 +12,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Xml;
+using System.Linq;
 
 static class Program
 {
-
     public static bool usingAutoWriter = false;
 
     static bool saveRegularSize = true;
@@ -24,82 +24,31 @@ static class Program
     static bool saveUpscaledCombined = true;
     static bool saveflipped = true;
 
+    public static Dictionary<string, Bitmap> regularbitmaps = new Dictionary<string, Bitmap>(); //the first 2 are written to from WFC. not the cleanest but whatever
+    public static List<string> listofNames = new List<string>();
+    public static List<Bitmap> upscaleds = new List<Bitmap>();
+
     static void Main(string[] args)
     {
-        Dictionary<string, Bitmap> regularbitmaps = new Dictionary<string, Bitmap>();
-        List<Bitmap> upscaleds = new List<Bitmap>();
+        ReadSettings();
 
         int scaling = 10;
         int tiling = 10;
         int upscaledTiling = 2;
 
-        Console.WriteLine(args.Length);
-
-        if (args[1] == "true")
+        if (args[1] == "true") //arg 0 is "WaveFunctionCollapse.csproj" so we look at arg[1]
         {
             usingAutoWriter = true;
+            Writer.CreateSamplesFile();
         }
         else
         {
             usingAutoWriter = false;
         }
 
-        Writer.CreateSamplesFile();
-
         Stopwatch sw = Stopwatch.StartNew();
 
-        Random random = new Random();
-        XDocument xdoc;
-        if (usingAutoWriter)
-        {
-            xdoc = XDocument.Load("samplesauto.xml");
-        }
-        else
-        {
-            xdoc = XDocument.Load("samples.xml");
-        }
-
-        List<string> listofNames = new List<string>();
-
-        int counter = 1;
-        foreach (XElement xelem in xdoc.Root.Elements("overlapping", "simpletiled"))
-        {
-            Model model;
-            string name = xelem.Get<string>("name");
-            Console.WriteLine($"< {name}");
-
-            if (xelem.Name == "overlapping") model = new OverlappingModel(name, xelem.Get("N", 2), xelem.Get("width", 48), xelem.Get("height", 48),
-                xelem.Get("periodicInput", true), xelem.Get("periodic", false), xelem.Get("symmetry", 8), xelem.Get("ground", 0));
-            else if (xelem.Name == "simpletiled") model = new SimpleTiledModel(name, xelem.Get<string>("subset"),
-                xelem.Get("width", 10), xelem.Get("height", 10), xelem.Get("periodic", false), xelem.Get("black", false));
-            else continue;
-
-            for (int i = 0; i < xelem.Get("screenshots", 2); i++)
-            {
-                for (int k = 0; k < 10; k++)
-                {
-                    Console.Write("> ");
-                    int seed = random.Next();
-                    bool finished = model.Run(seed, xelem.Get("limit", 0));
-                    if (finished)
-                    {
-                        Console.WriteLine("DONE");
-                        listofNames.Add($"{counter} {name} {i}");
-
-                        
-                        regularbitmaps.Add($"{counter} {name} {i}",model.Graphics());
-
-                        if (model is SimpleTiledModel && xelem.Get("textOutput", false))
-                            System.IO.File.WriteAllText($"{counter} {name} {i}.txt", (model as SimpleTiledModel).TextOutput());
-
-                        break;
-                    }
-                    else Console.WriteLine("CONTRADICTION");
-                }
-            }
-
-            counter++;
-        }
+        WFC.Run(); // Runs the WFC
 
 
         if (saveRegularSize)
@@ -109,8 +58,6 @@ static class Program
                 kvp.Value.Save(kvp.Key + ".png");
             }
         }
-
-
 
         if(saveUpscaleds || saveUpscaledCombined)
         {
@@ -143,8 +90,6 @@ static class Program
             Console.WriteLine("Upscales Done!");
         }
 
-
-
         if (saveRegularCombined)
         {
             Console.WriteLine("Beginning Combineds...");
@@ -164,7 +109,6 @@ static class Program
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        // Console.WriteLine(orgX + "," + orgY + "  ---- " + image.Width + "x" + image.Height);
                         combinedImage.SetPixel(x, y, image.GetPixel(orgX, orgY));
 
                         orgX++;
@@ -192,9 +136,9 @@ static class Program
         {
             Console.WriteLine("Beginning Upscaled Combineds...");
             int count = 0;
-            foreach (Bitmap bit in upscaleds)
+            foreach (string name in listofNames)
             {
-                Bitmap combinedImage = new Bitmap(bit.Width * (tiling / 4), bit.Height * (tiling / 4));
+                Bitmap combinedImage = new Bitmap(upscaleds[count].Width * (tiling / 4), upscaleds[count].Height * (tiling / 4));
 
                 int height = combinedImage.Height;
                 int width = combinedImage.Width;
@@ -206,71 +150,57 @@ static class Program
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        // Console.WriteLine(orgX + "," + orgY + "  ---- " + image.Width + "x" + image.Height);
-                        combinedImage.SetPixel(x, y, bit.GetPixel(orgX, orgY));
+                        combinedImage.SetPixel(x, y, upscaleds[count].GetPixel(orgX, orgY));
 
                         orgX++;
 
-                        if (orgX >= bit.Width)
+                        if (orgX >= upscaleds[count].Width)
                         {
                             orgX = 0;
                         }
 
                     }
                     orgY++;
-                    if (orgY >= bit.Height)
+                    if (orgY >= upscaleds[count].Height)
                     {
                         orgY = 0;
                     }
                 }
 
-                combinedImage.Save("BIGcombined " + bit + " " + count + ".png");
+                combinedImage.Save("BIGcombined " + name + ".png");
                 count++;
             }
             Console.WriteLine("Upscaled Combineds Done!");
         }
 
-
         if (saveflipped)
         {
             Console.WriteLine("Beginning Flipped...");
             int count = 0;
-            foreach (Bitmap bit in upscaleds)
+            foreach (string name in listofNames)
             {
-                Bitmap flippedImage = new Bitmap(bit.Width * upscaledTiling, bit.Height * upscaledTiling);
+                Bitmap flippedImage = new Bitmap(upscaleds[count].Width * upscaledTiling, upscaleds[count].Height * upscaledTiling);
 
                 int height = flippedImage.Height - 1; //is one pixel less because the resulting image won't have pixel 0 in height and width twice
                 int width = flippedImage.Width - 1;
 
-                int orgX = -bit.Width + 1;
-                int orgY = -bit.Height + 1;
+                int orgX = -upscaleds[count].Width + 1;
+                int orgY = -upscaleds[count].Height + 1;
 
                 for (int y = 0; y < height; y++)
                 {
-                    orgX = -bit.Width + 1;
+                    orgX = -upscaleds[count].Width + 1;
                     for (int x = 0; x < width; x++)
                     {
-                        // Console.WriteLine(orgX + "," + orgY + "  ---- " + image.Width + "x" + image.Height);
-                        flippedImage.SetPixel(x, y, bit.GetPixel(Math.Abs(orgX), Math.Abs(orgY)));
-
-                        // -(height / upscaledTiling); y < (height / upscaledTiling)
+                        flippedImage.SetPixel(x, y, upscaleds[count].GetPixel(Math.Abs(orgX), Math.Abs(orgY)));
 
                         orgX++;
 
-                        //if (orgX < 0)
-                        //{
-                        //    orgX = bit.Width - 1;
-                        //}
-
                     }
                     orgY++;
-                    //if (orgY < 0)
-                    //{
-                    //    orgY = bit.Height - 1;
-                    //}
                 }
 
-                flippedImage.Save("FLIPPEDcombined " + bit + " " + count + ".png");
+                flippedImage.Save("FLIPPEDcombined " + name + ".png");
                 count++;
             }
             Console.WriteLine("Flipped Done!");
@@ -278,9 +208,24 @@ static class Program
 
 
 
-
-
-
         Console.WriteLine($"time = {sw.ElapsedMilliseconds}");
     }
+
+
+    static void ReadSettings()
+    {
+        XDocument settings = XDocument.Load("settings.xml");
+
+        Console.WriteLine("s");
+        List<XNode> nodes = settings.Nodes().ToList();
+
+        saveRegularSize = settings.Root.Element("saveRegularSize").Get("value", true);
+        saveUpscaleds = settings.Root.Element("saveUpscaleds").Get("value", true);
+        saveRegularCombined = settings.Root.Element("saveRegularCombined").Get("value", true);
+        saveUpscaledCombined = settings.Root.Element("saveUpscaledCombined").Get("value", true);
+        saveflipped = settings.Root.Element("saveflipped").Get("value", true);
+
+    }
+
+
 }

@@ -32,12 +32,14 @@ public static class Writer
         foreach(string s in names)
         {
             int n = rand.Next(2, 6);
-            int ran = rand.Next(4, 9);
-            int symmetry = ran - ran % 2; 
+            int symselect = rand.Next(0, 3);
+            Console.WriteLine("SYM:" + symselect);
+            int[] symmetries = new int[3] { 2, 4, 8 };
             lines.Add("<overlapping name=\"" + s + "\" N=\"3\" symmetry=\"2\" periodic=\"True\" width=\"100\" height=\"100\"/>");
             lines.Add("<overlapping name=\"" + s + "\" N=\"3\" symmetry=\"8\" periodic=\"True\" width=\"100\" height=\"100\"/>");
             lines.Add("<overlapping name=\"" + s + "\" N=\"4\" symmetry=\"2\" periodic=\"True\" width=\"100\" height=\"100\"/>");
-            lines.Add("<overlapping name=\"" + s + "\" N=\"" + n + "\" symmetry=\"" + symmetry + "\" periodic=\"True\" width=\"100\" height=\"100\" limit=\"5\"/>");
+            lines.Add("<overlapping name=\"" + s + "\" N=\"4\" symmetry=\"8\" periodic=\"True\" width=\"100\" height=\"100\"/>");
+            lines.Add("<overlapping name=\"" + s + "\" N=\"" + n + "\" symmetry=\"" + symmetries[symselect] + "\" periodic=\"True\" width=\"100\" height=\"100\" limit=\"5\"/>");
         }
         lines.Add("</samples>");
 

@@ -1,0 +1,7 @@
+<settings>
+	<saveRegularSize value = "false"/>
+	<saveUpscaleds value = "true"/>
+	<saveRegularCombined value = "false"/>
+	<saveUpscaledCombined value = "true"/>
+	<saveflipped value = "true"/>
+</settings>
