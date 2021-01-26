@@ -9,15 +9,15 @@ Example Output:
 How to run code:
 
 Use the .bat files, either Runwfc_auto or Runwfc_standard OR run "dotnet run WaveFunctionCollapse.csproj [true/false]" in CMD.
-	* auto will setup and run on any images in the "samplesauto" folder.
-	* standard requires setup of samples.xml, and the corresponding image to be in the "samples" folder.
+* auto will setup and run on any images in the "samplesauto" folder.
+* standard requires setup of samples.xml, and the corresponding image to be in the "samples" folder.
 
 Use settings.xml to change type of output:
-	* saveRegularSize: saves regular 100x100 output images, directly from WFC output.
-	* saveUpscaleds: saves upscaled versions of the 100x100 images, unchanged.
-	* saveRegularCombined: saves regular (100x100) images combined into a 10x10 tiled grid.
-	* saveUpscaledCombined: saves upscaled images, combined in a 2x2 grid.
-	* saveflipped: saves upscaled version, flipped four times in each cardinal direction, in a single pattern.
+* saveRegularSize: saves regular 100x100 output images, directly from WFC output.
+* saveUpscaleds: saves upscaled versions of the 100x100 images, unchanged.
+* saveRegularCombined: saves regular (100x100) images combined into a 10x10 tiled grid.
+* saveUpscaledCombined: saves upscaled images, combined in a 2x2 grid.
+* saveflipped: saves upscaled version, flipped four times in each cardinal direction, in a single pattern.
 
 Rules and Constraints:
 
