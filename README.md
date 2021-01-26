@@ -23,7 +23,6 @@ Rules and Constraints:
 
 * Image Size is 30 x 30 pixels max
 * Image must be represented by one simple slice of a pattern (ex. spiral, square, curve, etc.)
-* The source image can be more than one color.
 
 * Pattern Size: N=3/4
 * Symmetry = 2/4/8
